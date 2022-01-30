@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { BallTriangle } from 'react-loader-spinner';
 import { Form, Button, Toast } from 'react-bootstrap';
 import { usePostItemMutation } from 'services/contactsApi';
-import { useGetCurrentUserQuery } from 'services/usersApi';
 import { changeFilter } from 'redux/filterSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import s from './ContactForm.module.css';

@@ -26,7 +26,7 @@ export default function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicText">
+      <Form.Group className="mb-3" controlId="formSignupText">
         <Form.Label>Name</Form.Label>
         <Form.Control
           type="text"
@@ -37,7 +37,7 @@ export default function SignupForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formSignupEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           type="email"
@@ -52,7 +52,7 @@ export default function SignupForm() {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3" controlId="formSignupPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
@@ -60,6 +60,7 @@ export default function SignupForm() {
           name="password"
           value={password}
           required
+          autoComplete="current-password"
           onChange={handleChange}
         />
       </Form.Group>

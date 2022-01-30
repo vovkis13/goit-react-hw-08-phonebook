@@ -13,17 +13,14 @@ import SignupForm from 'components/SignupForm';
 
 export default function App() {
   const [logoutUser] = useLogoutUserMutation();
-
   const currentToken = useSelector(getToken);
-  console.dir('currentToken', currentToken);
   const { data } = useGetCurrentUserQuery(currentToken);
-  console.log(data);
-
   const handleLogout = () => {
-    logoutUser(currentToken);
+    if (currentToken) logoutUser(currentToken);
   };
   return (
     <>
+      {data && <p>{`Текущий пользователь ${data.name ?? ''}`}</p>}
       <Navbar bg="primary" variant="dark">
         <Container>
           <Navbar.Brand href="#home">Phonebook hw.8</Navbar.Brand>

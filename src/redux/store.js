@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
+// import { setupListeners } from '@reduxjs/toolkit/query';
 import { contactsApi } from 'services/contactsApi';
 import { usersApi } from 'services/usersApi';
 import filterReducer from './filterSlice';
@@ -22,4 +22,4 @@ const store = configureStore({
 });
 export default store;
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);

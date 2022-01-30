@@ -8,15 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginUser, { data, isSuccess }] = useLoginUserMutation();
+  const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    loginUser({ email, password });
-    if (isSuccess) dispatch(changeToken(data.token));
-    setEmail('');
-    setPassword('');
+    const { data, isSuccess } = await loginUser({ email, password });
+    console.log(data, isSuccess);
+    if (data) dispatch(changeToken(data.token));
+    // setEmail('');
+    // setPassword('');
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -26,7 +27,7 @@ export default function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formLoginEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           type="email"
@@ -41,7 +42,7 @@ export default function LoginForm() {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3" controlId="formLoginPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
@@ -52,7 +53,7 @@ export default function LoginForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+      <Form.Group className="mb-3" controlId="formLoginCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
       <Button variant="primary" type="submit">

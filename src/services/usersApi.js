@@ -1,48 +1,41 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { useSelector } from 'react-redux';
-// import { getToken } from 'redux/selectors';
+import axios from 'axios';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+const axiosBaseQuery =
+  ({ baseUrl } = { baseUrl: 'https://connections-api.herokuapp.com' }) =>
+  async ({ url, method, data }, { getState }) => {
+    try {
+      const token = getState().token;
+      axios.defaults.headers.common.Authorization = token ? `${token}` : '';
+      const result = await axios({ url: baseUrl + url, method, data });
+      return { data: result.data };
+    } catch (axiosError) {
+      const err = axiosError;
+      return {
+        error: { status: err.response?.status, data: err.response?.data },
+      };
+    }
+  };
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://connections-api.herokuapp.com',
-  }),
+  baseQuery: axiosBaseQuery(),
   tagTypes: ['User'],
   endpoints: builder => ({
     getCurrentUser: builder.query({
-      query: token => ({
-        url: '/users/current',
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: token => ({ url: '/users/current', method: 'GET' }),
       providesTags: ['User'],
     }),
     signupUser: builder.mutation({
-      query: user => ({
-        url: '/users/signup',
-        method: 'POST',
-        body: user,
-      }),
+      query: user => ({ url: '/users/signup', method: 'POST', data: user }),
       invalidatesTags: ['User'],
     }),
     loginUser: builder.mutation({
-      query: user => ({
-        url: '/users/login',
-        method: 'POST',
-        body: user,
-      }),
+      query: user => ({ url: '/users/login', method: 'POST', data: user }),
       invalidatesTags: ['User'],
     }),
     logoutUser: builder.mutation({
-      query: token => ({
-        url: '/users/logout',
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: token => ({ url: '/users/logout', method: 'POST' }),
       invalidatesTags: ['User'],
     }),
   }),

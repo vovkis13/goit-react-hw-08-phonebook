@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { contactsApi } from 'services/contactsApi';
 
 export const getContacts = contactsApi.endpoints.getItems.select();
+
 export const getFilter = state => state.filter;
 export const getToken = state => state.token;
 
