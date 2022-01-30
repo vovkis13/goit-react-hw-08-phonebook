@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { Form } from 'react-bootstrap';
+import { changeFilter } from 'redux/filterSlice';
 import { getFilter } from 'redux/selectors';
-import { changeFilter } from 'redux/actions';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './Filter.module.css';
 
 export default function Filter() {
@@ -8,10 +10,10 @@ export default function Filter() {
   const dispatch = useDispatch();
 
   return (
-    <div className={s.filter}>
+    <Form>
       <p className={s.title}>Find contacts by name</p>
-      <input
-        className={s.input}
+      <Form.Control
+        // className={s.input}
         type="text"
         name="filterValue"
         value={filter}
@@ -21,6 +23,6 @@ export default function Filter() {
             d'Artagnan"
         onChange={e => dispatch(changeFilter(e.target.value))}
       />
-    </div>
+    </Form>
   );
 }

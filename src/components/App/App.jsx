@@ -1,23 +1,53 @@
+import { Form, Button, Navbar, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { BallTriangle } from 'react-loader-spinner';
-import { getLoading, getError } from 'redux/selectors';
-import ContactForm from 'components/ContactForm';
-import Filter from 'components/Filter';
-import ContactList from 'components/ContactList/';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { getToken } from 'redux/selectors';
+import {
+  useLogoutUserMutation,
+  useGetCurrentUserQuery,
+} from 'services/usersApi';
+import Contacts from 'components/Contacts';
+// import UserMenu from 'components/UserMenu';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from 'components/LoginForm';
+import SignupForm from 'components/SignupForm';
 
 export default function App() {
-  const isLoading = useSelector(getLoading);
-  const errorMsg = useSelector(getError);
+  const [logoutUser] = useLogoutUserMutation();
+
+  const currentToken = useSelector(getToken);
+  console.dir('currentToken', currentToken);
+  const { data } = useGetCurrentUserQuery(currentToken);
+  console.log(data);
+
+  const handleLogout = () => {
+    logoutUser(currentToken);
+  };
   return (
-    <div>
-      <h1>Phonebook (ASYNC REDUX)</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      {isLoading && <BallTriangle color="#ffaa00" height={80} width={80} />}
-      <ContactList />
-      {errorMsg && <p>{errorMsg}</p>}
-    </div>
+    <>
+      <Navbar bg="primary" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">Phonebook hw.8</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Signed in as: <a href="#login">Mark Otto</a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+        <Form className="d-flex">
+          <Button
+            type="button"
+            bg="dark"
+            variant="light"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </Form>
+      </Navbar>
+      <SignupForm />
+      <LoginForm />
+      <Contacts />
+    </>
   );
 }

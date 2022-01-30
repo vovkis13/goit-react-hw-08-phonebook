@@ -1,6 +1,5 @@
 {
   "name": "goit-react-hw-08-phonebook",
-  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,17 +7,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.25.0",
-    "gh-pages": "^3.2.3",
+    "bootstrap": "^5.1.3",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.1.1",
     "react-dom": "^17.0.2",
-    "react-loader-spinner": "^5.0.10",
+    "react-loader-spinner": "^5.1.0",
     "react-redux": "^7.2.6",
     "react-scripts": "5.0.0"
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "netlify deploy -p",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

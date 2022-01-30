@@ -1,14 +1,17 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { contactsApi } from 'services/contactsApi';
 
-export const getContacts = state => state.contacts.items;
-export const getLoading = state => state.contacts.loading;
-export const getError = state => state.contacts.error;
-export const getFilter = state => state.contacts.filter;
+export const getContacts = contactsApi.endpoints.getItems.select();
+export const getFilter = state => state.filter;
+export const getToken = state => state.token;
 
 export const getFilteredContacts = createSelector(
   [getContacts, getFilter],
-  (contacts, filter) =>
-    contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase()),
-    ),
+  ({ data, isSuccess }, filterValue) => {
+    if (isSuccess)
+      return data.filter(({ name }) =>
+        name.toLowerCase().includes(filterValue.toLowerCase()),
+      );
+    return [];
+  },
 );
