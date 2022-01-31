@@ -1,21 +1,5 @@
-import axios from 'axios';
 import { createApi } from '@reduxjs/toolkit/query/react';
-
-const axiosBaseQuery =
-  ({ baseUrl } = { baseUrl: 'https://connections-api.herokuapp.com' }) =>
-  async ({ url, method, data }, { getState }) => {
-    try {
-      const token = getState().token;
-      axios.defaults.headers.common.Authorization = token ? `${token}` : '';
-      const result = await axios({ url: baseUrl + url, method, data });
-      return { data: result.data };
-    } catch (axiosError) {
-      const err = axiosError;
-      return {
-        error: { status: err.response?.status, data: err.response?.data },
-      };
-    }
-  };
+import axiosBaseQuery from './axiosBaseQuery';
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -23,7 +7,7 @@ export const usersApi = createApi({
   tagTypes: ['User'],
   endpoints: builder => ({
     getCurrentUser: builder.query({
-      query: token => ({ url: '/users/current', method: 'GET' }),
+      query: () => ({ url: '/users/current', method: 'GET' }),
       providesTags: ['User'],
     }),
     signupUser: builder.mutation({
@@ -35,7 +19,7 @@ export const usersApi = createApi({
       invalidatesTags: ['User'],
     }),
     logoutUser: builder.mutation({
-      query: token => ({ url: '/users/logout', method: 'POST' }),
+      query: () => ({ url: '/users/logout', method: 'POST' }),
       invalidatesTags: ['User'],
     }),
   }),

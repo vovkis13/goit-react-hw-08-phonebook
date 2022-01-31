@@ -1,26 +1,33 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import axiosBaseQuery from './axiosBaseQuery';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://61c9aac920ac1c0017ed8d58.mockapi.io/contacts/contacts',
-  }),
+  baseQuery: axiosBaseQuery(),
   tagTypes: ['Contact'],
   endpoints: builder => ({
     getItems: builder.query({
-      query: () => '',
+      query: () => ({ url: '/contacts', method: 'GET' }),
       providesTags: ['Contact'],
     }),
     postItem: builder.mutation({
-      query: contact => ({ url: '', method: 'POST', body: contact }),
+      query: contact => ({ url: '/contacts', method: 'POST', data: contact }),
       invalidatesTags: ['Contact'],
     }),
     deleteItem: builder.mutation({
-      query: id => ({ url: `/${id}`, method: 'DELETE' }),
+      query: id => ({ url: `/contacts/${id}`, method: 'DELETE' }),
+      invalidatesTags: ['Contact'],
+    }),
+    patchItem: builder.mutation({
+      query: id => ({ url: `/contacts/${id}`, method: 'DELETE' }),
       invalidatesTags: ['Contact'],
     }),
   }),
 });
 
-export const { useGetItemsQuery, usePostItemMutation, useDeleteItemMutation } =
-  contactsApi;
+export const {
+  useGetItemsQuery,
+  usePostItemMutation,
+  useDeleteItemMutation,
+  usePatchItemMutation,
+} = contactsApi;

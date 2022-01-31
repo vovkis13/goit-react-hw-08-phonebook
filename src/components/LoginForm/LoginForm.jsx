@@ -13,11 +13,10 @@ export default function LoginForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const { data, isSuccess } = await loginUser({ email, password });
-    console.log(data, isSuccess);
+    const { data } = await loginUser({ email, password });
     if (data) dispatch(changeToken(data.token));
-    // setEmail('');
-    // setPassword('');
+    setEmail('');
+    setPassword('');
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -57,7 +56,7 @@ export default function LoginForm() {
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
       <Button variant="primary" type="submit">
-        Submit
+        Log in
       </Button>
     </Form>
   );

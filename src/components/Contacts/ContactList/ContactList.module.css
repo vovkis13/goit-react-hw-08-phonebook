@@ -1,7 +1,8 @@
 .contacts {
+  display: flex;
   margin: 0;
   padding: 20px;
-  border: 1px solid gray;
   align-items: center;
-  background-color:navajowhite;
+  list-style: none;
+
 }

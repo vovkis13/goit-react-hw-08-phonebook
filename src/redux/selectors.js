@@ -8,8 +8,8 @@ export const getToken = state => state.token;
 
 export const getFilteredContacts = createSelector(
   [getContacts, getFilter],
-  ({ data, isSuccess }, filterValue) => {
-    if (isSuccess)
+  ({ data }, filterValue) => {
+    if (data)
       return data.filter(({ name }) =>
         name.toLowerCase().includes(filterValue.toLowerCase()),
       );

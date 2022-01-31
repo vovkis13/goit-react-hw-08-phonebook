@@ -5,7 +5,7 @@ import { changeFilter } from 'redux/filterSlice';
 import { useDeleteItemMutation, useGetItemsQuery } from 'services/contactsApi';
 // import s from './Contact.module.css';
 
-export default function Contact({ contact: { id, name, phone } }) {
+export default function Contact({ contact: { id, name, number } }) {
   const dispatch = useDispatch();
   const [deleteContact, { isError, error }] = useDeleteItemMutation();
   useGetItemsQuery();
@@ -22,7 +22,7 @@ export default function Contact({ contact: { id, name, phone } }) {
         <Card>
           <Card.Body>
             <Card.Title>{name}</Card.Title>
-            <Card.Text>{phone}</Card.Text>
+            <Card.Text>{number}</Card.Text>
             <Button
               variant="primary"
               type="button"
@@ -43,6 +43,6 @@ Contact.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }).isRequired,
 };

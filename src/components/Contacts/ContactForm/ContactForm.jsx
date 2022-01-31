@@ -9,21 +9,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [postContact, { isLoading, isError, error }] = usePostItemMutation();
+  const [number, setNumber] = useState('');
+  const [postItem, { isLoading, isError, error }] = usePostItemMutation();
   const dispatch = useDispatch();
 
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'name') return setName(value);
-    setPhone(value);
+    setNumber(value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    postContact({ name, phone });
+    postItem({ name, number });
     dispatch(changeFilter(''));
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -43,12 +43,12 @@ export default function ContactForm() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicTel">
-          <Form.Label>Phone</Form.Label>
+          <Form.Label>Phone number</Form.Label>
           <Form.Control
             type="tel"
-            name="phone"
-            placeholder="Enter phone"
-            value={phone}
+            name="number"
+            placeholder="Enter number"
+            value={number}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required

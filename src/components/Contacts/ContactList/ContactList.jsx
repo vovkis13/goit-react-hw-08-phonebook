@@ -3,7 +3,7 @@ import { BallTriangle } from 'react-loader-spinner';
 import { useGetItemsQuery } from 'services/contactsApi';
 import { getFilteredContacts } from 'redux/selectors';
 import Contact from 'components/Contacts/ContactList/Contact';
-// import s from './ContactList.module.css';
+import s from './ContactList.module.css';
 
 export default function ContactList() {
   const { isFetching, error, isError } = useGetItemsQuery();
@@ -11,7 +11,7 @@ export default function ContactList() {
 
   return (
     <>
-      <ul>
+      <ul className={s.contacts}>
         {filteredContacts.map(contact => (
           <Contact key={contact.id} contact={contact} />
         ))}
