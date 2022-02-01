@@ -1,6 +1,6 @@
 import { Button, Navbar, Nav, Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { getToken } from 'redux/selectors';
 import { useLogoutUserMutation, useGetUserQuery } from 'services/usersApi';
 import { useGetItemsQuery } from 'services/contactsApi';
@@ -14,7 +14,6 @@ export default function App() {
   const { data, isSuccess } = useGetUserQuery(currentToken);
   const dispatch = useDispatch();
   const getItemsResult = useGetItemsQuery();
-  const location = useLocation();
 
   const handleLogout = async () => {
     if (currentToken) {

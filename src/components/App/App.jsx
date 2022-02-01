@@ -16,7 +16,7 @@ export default function App() {
         <Route
           path="/signup"
           element={
-            <PublicRoute restricted>
+            <PublicRoute redirectTo="/contacts" restricted>
               <SignupForm />
             </PublicRoute>
           }
@@ -24,7 +24,7 @@ export default function App() {
         <Route
           path="/login"
           element={
-            <PublicRoute restricted>
+            <PublicRoute redirectTo="/contacts" restricted>
               <LoginForm />
             </PublicRoute>
           }
@@ -32,7 +32,7 @@ export default function App() {
         <Route
           path="/contacts"
           element={
-            <PrivateRoute>
+            <PrivateRoute redirectTo="/login">
               <Contacts />
             </PrivateRoute>
           }

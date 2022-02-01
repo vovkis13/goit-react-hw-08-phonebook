@@ -10,7 +10,7 @@ export default function Filter() {
   const dispatch = useDispatch();
 
   return (
-    <Container>
+    <>
       <Form className={s.filter}>
         <Form.Text>Find contacts by name</Form.Text>
         <Form.Control
@@ -26,6 +26,6 @@ export default function Filter() {
           onChange={e => dispatch(changeFilter(e.target.value))}
         />
       </Form>
-    </Container>
+    </>
   );
 }

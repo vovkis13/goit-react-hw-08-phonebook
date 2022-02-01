@@ -3,12 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getToken } from 'redux/selectors';
 
-export default function PublicRoute({
-  children,
-  restricted = false,
-  ...routeProps
-}) {
+export default function PublicRoute({ children, restricted = false, redirectTo }) {
   const token = useSelector(getToken);
   const shouldRedirect = token && restricted;
-  return !shouldRedirect ? children : <Navigate to="/contacts" />;
+  return !shouldRedirect ? children : <Navigate to={redirectTo} />;
 }

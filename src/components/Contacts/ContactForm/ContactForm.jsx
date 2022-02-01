@@ -28,40 +28,38 @@ export default function ContactForm() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Container>
-          <Form.Group className="mb-3">
-            <Row className="justify-content-md-between">
-              <Col md="5" controlId="validationCustom01">
-                <Form.Control
-                  type="text"
-                  name="name"
-                  placeholder="Enter name"
-                  value={name}
-                  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                  required
-                  onChange={handleChange}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Col>
-              <Col md="5" controlId="validationCustom02">
-                <Form.Control
-                  type="tel"
-                  name="number"
-                  placeholder="Enter number"
-                  value={number}
-                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                  required
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md="auto" controlId="validationCustom03">
-                <Button type="submit">Add +</Button>
-              </Col>
-            </Row>
-          </Form.Group>
-        </Container>
+        <Form.Group className="mb-3">
+          <Row className="justify-content-md-between">
+            <Col md="5" controlId="validationCustom01">
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                value={name}
+                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                required
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Col>
+            <Col md="5" controlId="validationCustom02">
+              <Form.Control
+                type="tel"
+                name="number"
+                placeholder="Enter number"
+                value={number}
+                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                required
+                onChange={handleChange}
+              />
+            </Col>
+            <Col md="auto" controlId="validationCustom03">
+              <Button type="submit">Add +</Button>
+            </Col>
+          </Row>
+        </Form.Group>
       </Form>
 
       {isError && (
