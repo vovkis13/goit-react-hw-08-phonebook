@@ -4,9 +4,9 @@ import axiosBaseQuery from './axiosBaseQuery';
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   baseQuery: axiosBaseQuery(),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Contact'],
   endpoints: builder => ({
-    getCurrentUser: builder.query({
+    getUser: builder.query({
       query: () => ({ url: '/users/current', method: 'GET' }),
       providesTags: ['User'],
     }),
@@ -26,7 +26,7 @@ export const usersApi = createApi({
 });
 
 export const {
-  useGetCurrentUserQuery,
+  useGetUserQuery,
   useSignupUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,

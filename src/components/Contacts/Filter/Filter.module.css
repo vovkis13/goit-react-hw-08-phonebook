@@ -1,15 +1,5 @@
 .filter {
-  padding: 20px;
-  border: 1px solid gray;
+  margin: 20px auto;
   align-items: center;
-  background-color: navajowhite;
-  border-bottom: none;
 }
 
-.title {
-  display: block;
-  margin: 0 0 10px;
-}
-.input {
-  width: 250px;
-}

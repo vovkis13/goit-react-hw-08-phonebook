@@ -3,20 +3,27 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeToken } from 'redux/tokenSlice';
 import { useLoginUserMutation } from 'services/usersApi';
+import { useGetItemsQuery } from 'services/contactsApi';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [loginUser] = useLoginUserMutation();
-  const dispatch = useDispatch();
+  const getItemsResult = useGetItemsQuery();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const { data } = await loginUser({ email, password });
-    if (data) dispatch(changeToken(data.token));
-    setEmail('');
-    setPassword('');
+    const loginResult = await loginUser({ email, password });
+    if (loginResult.data) {
+      dispatch(changeToken(loginResult.data.token));
+      getItemsResult.refetch();
+      setEmail('');
+      setPassword('');
+    }
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -51,9 +58,6 @@ export default function LoginForm() {
           required
           onChange={handleChange}
         />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formLoginCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
       <Button variant="primary" type="submit">
         Log in

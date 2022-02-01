@@ -16,27 +16,41 @@ export default function Contact({ contact: { id, name, number } }) {
     deleteContact(id);
   };
 
-  return (
-    <li>
-      {!isError && (
-        <Card>
-          <Card.Body>
-            <Card.Title>{name}</Card.Title>
-            <Card.Text>{number}</Card.Text>
-            <Button
-              variant="primary"
-              type="button"
-              value={id}
-              onClick={handleDelete}
-            >
-              Delete
-            </Button>
-          </Card.Body>
-        </Card>
-      )}
-      {isError && <p>{error.status}</p>}
-    </li>
-  );
+    const handleEdit = e => {
+      e.preventDefault();
+      dispatch(changeFilter(''));
+      deleteContact(id);
+    };
+
+    return (
+      <li>
+        {!isError && (
+          <Card>
+            <Card.Body>
+              <Card.Title>{name}</Card.Title>
+              <Card.Text>{number}</Card.Text>
+              {/* <Button
+                variant="primary"
+                type="button"
+                value={id}
+                onClick={handleEdit}
+              >
+                Edit
+              </Button> */}
+              <Button
+                variant="primary"
+                type="button"
+                value={id}
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </Card.Body>
+          </Card>
+        )}
+        {isError && <p>{error.status}</p>}
+      </li>
+    );
 }
 
 Contact.propTypes = {
