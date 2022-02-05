@@ -9,20 +9,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './UseMenu.module.css';
 
 export default function App() {
-  const [logoutUser] = useLogoutUserMutation();
-  const currentToken = useSelector(getToken);
-  const { data, isSuccess } = useGetUserQuery(currentToken);
   const dispatch = useDispatch();
-  const getItemsResult = useGetItemsQuery();
+
+  const token = useSelector(getToken);
+
+  const [logoutUser] = useLogoutUserMutation(token);
+  const getUserResult = useGetUserQuery(token);
+  const getItemsResult = useGetItemsQuery(token);
+
+  const currentUser = getUserResult.isSuccess ? getUserResult.data.name : '';
 
   const handleLogout = async () => {
-    if (currentToken) {
-      await logoutUser(currentToken);
+    if (token) {
+      await logoutUser();
+      localStorage.setItem('token', '');
       dispatch(changeToken(''));
       getItemsResult.refetch();
     }
   };
-  const currentUser = isSuccess ? data.name : '';
 
   return (
     <Navbar className="mb-3" bg="primary" variant="dark">

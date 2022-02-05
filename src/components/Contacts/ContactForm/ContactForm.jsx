@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Form, Row, Col, Button, Toast } from 'react-bootstrap';
+import { Form, Row, Col, Button, Toast } from 'react-bootstrap';
 import { usePostItemMutation } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import s from './ContactForm.module.css';
 
 export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [postItem, { isError, error }] = usePostItemMutation();
-  const dispatch = useDispatch();
 
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'name') return setName(value);
@@ -30,7 +31,7 @@ export default function ContactForm() {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Row className="justify-content-md-between">
-            <Col md="5" controlId="validationCustom01">
+            <Col md="5">
               <Form.Control
                 type="text"
                 name="name"
@@ -43,7 +44,7 @@ export default function ContactForm() {
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Col>
-            <Col md="5" controlId="validationCustom02">
+            <Col md="5">
               <Form.Control
                 type="tel"
                 name="number"
@@ -55,7 +56,7 @@ export default function ContactForm() {
                 onChange={handleChange}
               />
             </Col>
-            <Col md="auto" controlId="validationCustom03">
+            <Col md="auto">
               <Button type="submit">Add +</Button>
             </Col>
           </Row>

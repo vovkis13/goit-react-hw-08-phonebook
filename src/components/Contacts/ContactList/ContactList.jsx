@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { BallTriangle } from 'react-loader-spinner';
 import { useGetItemsQuery } from 'services/contactsApi';
 import { getFilteredContacts, getToken } from 'redux/selectors';
 import Contact from 'components/Contacts/ContactList/Contact';
@@ -17,7 +16,6 @@ export default function ContactList() {
             <Contact key={contact.id} contact={contact} />
           ))}
       </ul>
-      {isFetching && <BallTriangle color="#ffaa00" height={80} width={80} />}
       {isError && <p>{error.status}</p>}
     </>
   );

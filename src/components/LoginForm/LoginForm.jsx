@@ -1,9 +1,8 @@
-import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { changeToken } from 'redux/tokenSlice';
+import { Form, Button } from 'react-bootstrap';
 import { useLoginUserMutation } from 'services/usersApi';
-import { useGetItemsQuery } from 'services/contactsApi';
+import { changeToken } from 'redux/tokenSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function LoginForm() {
@@ -13,14 +12,13 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
 
   const [loginUser] = useLoginUserMutation();
-  const getItemsResult = useGetItemsQuery();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const loginResult = await loginUser({ email, password });
-    if (loginResult.data) {
-      dispatch(changeToken(loginResult.data.token));
-      getItemsResult.refetch();
+    const { data } = await loginUser({ email, password });
+    if (data) {
+      dispatch(changeToken(data.token));
+      localStorage.setItem('token', data.token);
       setEmail('');
       setPassword('');
     }
@@ -33,7 +31,7 @@ export default function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formLoginEmail">
+      <Form.Group className="mb-3">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           type="email"
@@ -48,7 +46,7 @@ export default function LoginForm() {
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formLoginPassword">
+      <Form.Group className="mb-3">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"

@@ -1,20 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { changeFilter } from 'redux/filterSlice';
 import { getFilter } from 'redux/selectors';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import s from './Filter.module.css';
 
 export default function Filter() {
-  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+
+  const filter = useSelector(getFilter);
 
   return (
     <>
       <Form className={s.filter}>
         <Form.Text>Find contacts by name</Form.Text>
         <Form.Control
-          // className={s.input}
           type="text"
           name="filterValue"
           value={filter}

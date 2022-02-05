@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
-import { changeFilter } from 'redux/filterSlice';
 import { useDeleteItemMutation, useGetItemsQuery } from 'services/contactsApi';
+import { changeFilter } from 'redux/filterSlice';
 // import s from './Contact.module.css';
 
 export default function Contact({ contact: { id, name, number } }) {
@@ -16,20 +16,20 @@ export default function Contact({ contact: { id, name, number } }) {
     deleteContact(id);
   };
 
-    const handleEdit = e => {
-      e.preventDefault();
-      dispatch(changeFilter(''));
-      deleteContact(id);
-    };
+  const handleEdit = e => {
+    e.preventDefault();
+    dispatch(changeFilter(''));
+    deleteContact(id);
+  };
 
-    return (
-      <li>
-        {!isError && (
-          <Card>
-            <Card.Body>
-              <Card.Title>{name}</Card.Title>
-              <Card.Text>{number}</Card.Text>
-              {/* <Button
+  return (
+    <li>
+      {!isError && (
+        <Card>
+          <Card.Body>
+            <Card.Title>{name}</Card.Title>
+            <Card.Text>{number}</Card.Text>
+            {/* <Button
                 variant="primary"
                 type="button"
                 value={id}
@@ -37,20 +37,20 @@ export default function Contact({ contact: { id, name, number } }) {
               >
                 Edit
               </Button> */}
-              <Button
-                variant="primary"
-                type="button"
-                value={id}
-                onClick={handleDelete}
-              >
-                Delete
-              </Button>
-            </Card.Body>
-          </Card>
-        )}
-        {isError && <p>{error.status}</p>}
-      </li>
-    );
+            <Button
+              variant="primary"
+              type="button"
+              value={id}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </Card.Body>
+        </Card>
+      )}
+      {isError && <p>{error.status}</p>}
+    </li>
+  );
 }
 
 Contact.propTypes = {
