@@ -18,16 +18,8 @@ export const contactsApi = createApi({
       query: id => ({ url: `/contacts/${id}`, method: 'DELETE' }),
       invalidatesTags: ['Contact'],
     }),
-    patchItem: builder.mutation({
-      query: id => ({ url: `/contacts/${id}`, method: 'DELETE' }),
-      invalidatesTags: ['Contact'],
-    }),
   }),
 });
 
-export const {
-  useGetItemsQuery,
-  usePostItemMutation,
-  useDeleteItemMutation,
-  usePatchItemMutation,
-} = contactsApi;
+export const { useGetItemsQuery, usePostItemMutation, useDeleteItemMutation } =
+  contactsApi;

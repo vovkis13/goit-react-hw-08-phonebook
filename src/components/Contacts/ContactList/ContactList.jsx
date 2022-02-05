@@ -5,7 +5,7 @@ import Contact from 'components/Contacts/ContactList/Contact';
 import s from './ContactList.module.css';
 
 export default function ContactList() {
-  const { isFetching, error, isError } = useGetItemsQuery();
+  const { error, isError } = useGetItemsQuery();
   const filteredContacts = useSelector(getFilteredContacts);
   const token = useSelector(getToken);
   return (

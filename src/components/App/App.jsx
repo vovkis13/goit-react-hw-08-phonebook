@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 import { useGetUserQuery } from 'services/usersApi';
 import { useGetItemsQuery } from 'services/contactsApi';
 import { changeToken } from 'redux/tokenSlice';
@@ -33,35 +34,42 @@ export default function App() {
   return (
     <>
       <UserMenu />
-      <Routes>
-        <Route path="/" element={<Navigate to="/contacts" />} />
-        <Route
-          path="/signup"
-          element={
-            <PublicRoute redirectTo="/contacts" restricted>
-              <SignupForm />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <PublicRoute redirectTo="/contacts" restricted>
-              <LoginForm />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute redirectTo="/login">
-              <Contacts />
-            </PrivateRoute>
-          }
-        />
+      {(getUserResult.isFetching || getContactsResult.isFetching) && (
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      )}
+      {!getUserResult.isFetching && !getContactsResult.isFetching && (
+        <Routes>
+          <Route path="/" element={<Navigate to="/contacts" />} />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <SignupForm />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <LoginForm />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
 
-        <Route path="*" element={<Navigate to="/contacts" />} />
-      </Routes>
+          <Route path="*" element={<Navigate to="/contacts" />} />
+        </Routes>
+      )}
     </>
   );
 }

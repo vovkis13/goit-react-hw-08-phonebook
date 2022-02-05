@@ -4,7 +4,6 @@ import { Form, Row, Col, Button, Toast } from 'react-bootstrap';
 import { usePostItemMutation } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import s from './ContactForm.module.css';
 
 export default function ContactForm() {
   const dispatch = useDispatch();

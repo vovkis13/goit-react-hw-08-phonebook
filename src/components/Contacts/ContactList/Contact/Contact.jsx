@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import { useDeleteItemMutation, useGetItemsQuery } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
-// import s from './Contact.module.css';
 
 export default function Contact({ contact: { id, name, number } }) {
   const dispatch = useDispatch();
@@ -16,12 +15,6 @@ export default function Contact({ contact: { id, name, number } }) {
     deleteContact(id);
   };
 
-  const handleEdit = e => {
-    e.preventDefault();
-    dispatch(changeFilter(''));
-    deleteContact(id);
-  };
-
   return (
     <li>
       {!isError && (
@@ -29,14 +22,6 @@ export default function Contact({ contact: { id, name, number } }) {
           <Card.Body>
             <Card.Title>{name}</Card.Title>
             <Card.Text>{number}</Card.Text>
-            {/* <Button
-                variant="primary"
-                type="button"
-                value={id}
-                onClick={handleEdit}
-              >
-                Edit
-              </Button> */}
             <Button
               variant="primary"
               type="button"
