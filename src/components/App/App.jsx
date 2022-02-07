@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import { useGetUserQuery } from 'services/usersApi';
@@ -18,17 +19,15 @@ export default function App() {
   const dispatch = useDispatch();
 
   const token = useSelector(getToken);
-  const getUserResult = useGetUserQuery(token);
-  const getContactsResult = useGetItemsQuery(token);
+  const getUserResult = useGetUserQuery(token, { skip: !token });
+  const getContactsResult = useGetItemsQuery(token, { skip: !token });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      dispatch(changeToken(token));
-      getUserResult.refetch();
-      getContactsResult.refetch();
+    dispatch(changeToken(token));
+    if (token === null || getUserResult.isError) {
+      dispatch(changeToken(''));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -39,37 +38,37 @@ export default function App() {
           <Spinner animation="border" variant="primary" />
         </div>
       )}
-      {!getUserResult.isFetching && !getContactsResult.isFetching && (
-        <Routes>
-          <Route path="/" element={<Navigate to="/contacts" />} />
-          <Route
-            path="/signup"
-            element={
-              <PublicRoute redirectTo="/contacts" restricted>
-                <SignupForm />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute redirectTo="/contacts" restricted>
-                <LoginForm />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute redirectTo="/login">
-                <Contacts />
-              </PrivateRoute>
-            }
-          />
+      <Routes>
+        <Route path="/" element={<Navigate to="/contacts" />} />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute redirectTo="/contacts" restricted>
+              <SignupForm />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute redirectTo="/contacts" restricted>
+              <LoginForm />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login">
+              <Contacts />
+            </PrivateRoute>
+          }
+        />
+        {/* {getUserResult.data && !getContactsResult.isFetching && (
+        )} */}
 
-          <Route path="*" element={<Navigate to="/contacts" />} />
-        </Routes>
-      )}
+        <Route path="*" element={<Navigate to="/contacts" />} />
+      </Routes>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Row, Col, Button, Toast } from 'react-bootstrap';
+import { Form, Row, Col, InputGroup, Button, Toast } from 'react-bootstrap';
+import { FiUser, FiPhone, FiUserPlus } from 'react-icons/fi';
 import { usePostItemMutation } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,32 +32,44 @@ export default function ContactForm() {
         <Form.Group className="mb-3">
           <Row className="justify-content-md-between">
             <Col md="5">
-              <Form.Control
-                type="text"
-                name="name"
-                placeholder="Enter name"
-                value={name}
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-                onChange={handleChange}
-              />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <InputGroup>
+                <InputGroup.Text id="basic-addon1">
+                  <FiUser />
+                </InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  placeholder="Enter name"
+                  value={name}
+                  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                  required
+                  onChange={handleChange}
+                />
+              </InputGroup>
             </Col>
             <Col md="5">
-              <Form.Control
-                type="tel"
-                name="number"
-                placeholder="Enter number"
-                value={number}
-                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                required
-                onChange={handleChange}
-              />
+              <InputGroup className="mb-3">
+                <InputGroup.Text id="basic-addon1">
+                  <FiPhone />
+                </InputGroup.Text>
+                <Form.Control
+                  type="tel"
+                  name="number"
+                  placeholder="Enter number"
+                  value={number}
+                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                  required
+                  onChange={handleChange}
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </InputGroup>
             </Col>
-            <Col md="auto">
-              <Button type="submit">Add +</Button>
+            <Col md="1">
+              <Button type="submit">
+                <FiUserPlus />
+              </Button>
             </Col>
           </Row>
         </Form.Group>
