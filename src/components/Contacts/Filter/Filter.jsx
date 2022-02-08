@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, InputGroup } from 'react-bootstrap';
+import { Container, Form, InputGroup } from 'react-bootstrap';
 import { FiSearch } from 'react-icons/fi';
 import { changeFilter } from 'redux/filterSlice';
 import { getFilter } from 'redux/selectors';
@@ -12,7 +12,7 @@ export default function Filter() {
   const filter = useSelector(getFilter);
 
   return (
-    <>
+    <Container>
       <Form className={s.filter}>
         <Form.Text>Find contacts by name</Form.Text>
         <InputGroup className="mb-3">
@@ -32,6 +32,6 @@ export default function Filter() {
           />
         </InputGroup>
       </Form>
-    </>
+    </Container>
   );
 }

@@ -4,6 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 import { FiUserMinus } from 'react-icons/fi';
 import { useDeleteItemMutation, useGetItemsQuery } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
+import s from './Contact.module.css';
 
 export default function Contact({ contact: { id, name, number } }) {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function Contact({ contact: { id, name, number } }) {
     <li>
       {!isError && (
         <Card>
-          <Card.Body className="d-flex">
+          <Card.Body className={`d-flex ${s.contact}`}>
             <div>
               <Card.Title>{name}</Card.Title>
               <Card.Text>{number}</Card.Text>

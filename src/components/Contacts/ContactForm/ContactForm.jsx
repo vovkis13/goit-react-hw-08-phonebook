@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Row, Col, InputGroup, Button, Toast } from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  InputGroup,
+  Button,
+  Container,
+  Toast,
+} from 'react-bootstrap';
 import { FiUser, FiPhone, FiUserPlus } from 'react-icons/fi';
 import { usePostItemMutation } from 'services/contactsApi';
 import { changeFilter } from 'redux/filterSlice';
@@ -27,11 +35,11 @@ export default function ContactForm() {
   };
 
   return (
-    <>
+    <Container>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Row className="justify-content-md-between">
-            <Col md="5">
+            <Col md="auto">
               <InputGroup>
                 <InputGroup.Text id="basic-addon1">
                   <FiUser />
@@ -48,7 +56,7 @@ export default function ContactForm() {
                 />
               </InputGroup>
             </Col>
-            <Col md="5">
+            <Col md="auto">
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">
                   <FiPhone />
@@ -66,7 +74,7 @@ export default function ContactForm() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </InputGroup>
             </Col>
-            <Col md="1">
+            <Col md="auto">
               <Button type="submit">
                 <FiUserPlus />
               </Button>
@@ -88,6 +96,6 @@ export default function ContactForm() {
           <Toast.Body>{error.status}</Toast.Body>
         </Toast>
       )}
-    </>
+    </Container>
   );
 }
