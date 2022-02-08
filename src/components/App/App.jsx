@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -8,8 +7,8 @@ import { useGetItemsQuery } from 'services/contactsApi';
 import { changeToken } from 'redux/tokenSlice';
 import { getToken } from 'redux/selectors';
 import UserMenu from 'components/UserMenu';
-import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
-import PublicRoute from 'components/PublicRoute/PublicRoute';
+import PrivateRoute from 'routes/PrivateRoute/PrivateRoute';
+import PublicRoute from 'routes/PublicRoute/PublicRoute';
 import SignupForm from 'components/SignupForm';
 import LoginForm from 'components/LoginForm';
 import Contacts from 'components/Contacts';
@@ -17,18 +16,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   const dispatch = useDispatch();
-
   const token = useSelector(getToken);
   const getUserResult = useGetUserQuery(token, { skip: !token });
   const getContactsResult = useGetItemsQuery(token, { skip: !token });
+  const tokenLS = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    dispatch(changeToken(token));
-    if (token === null || getUserResult.isError) {
-      dispatch(changeToken(''));
-    }
+    if (tokenLS) dispatch(changeToken(tokenLS));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (getUserResult.isError || getContactsResult.isError)
+      dispatch(changeToken(''));
+  }, [getUserResult, getContactsResult, dispatch]);
 
   return (
     <>
@@ -64,9 +65,6 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        {/* {getUserResult.data && !getContactsResult.isFetching && (
-        )} */}
-
         <Route path="*" element={<Navigate to="/contacts" />} />
       </Routes>
     </>

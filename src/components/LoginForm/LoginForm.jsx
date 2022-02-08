@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { FiAtSign, FiKey } from 'react-icons/fi';
 import { useLoginUserMutation } from 'services/usersApi';
-import { useGetUserQuery } from 'services/usersApi';
-import { useGetItemsQuery } from 'services/contactsApi';
 import { changeToken } from 'redux/tokenSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,12 +12,8 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [loginUser, { isSuccess: loginSuccess }] = useLoginUserMutation();
-  // useGetUserQuery(loginSuccess, { skip: !loginSuccess });
-  // useGetItemsQuery(loginSuccess, {
-  //   skip: !loginSuccess,
-  // });
-  //
+  const [loginUser] = useLoginUserMutation();
+
   const handleSubmit = async e => {
     e.preventDefault();
     const { data: loginResult } = await loginUser({ email, password });
