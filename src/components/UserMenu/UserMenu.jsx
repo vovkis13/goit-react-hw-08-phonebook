@@ -33,6 +33,7 @@ export default function App() {
           <span>{`   Phonebook hw.8`}</span>
         </Navbar.Brand>
 
+        <Navbar.Toggle />
         <Nav className={s.nav}>
           {!currentUser && (
             <NavLink
@@ -50,11 +51,11 @@ export default function App() {
               <Navbar.Text>signup</Navbar.Text>
             </NavLink>
           )}
+          <Navbar.Text>
+            {currentUser && `Signed in as: ${currentUser}`}
+          </Navbar.Text>
         </Nav>
 
-        <Navbar.Text>
-          {currentUser && `Signed in as: ${currentUser}`}
-        </Navbar.Text>
         {currentUser && (
           <Button type="button" variant="light" onClick={handleLogout}>
             Logout

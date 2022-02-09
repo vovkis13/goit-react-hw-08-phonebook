@@ -39,7 +39,7 @@ export default function ContactForm() {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Row className="justify-content-md-between">
-            <Col md="auto">
+            <Col md="6">
               <InputGroup>
                 <InputGroup.Text id="basic-addon1">
                   <FiUser />
@@ -56,7 +56,7 @@ export default function ContactForm() {
                 />
               </InputGroup>
             </Col>
-            <Col md="auto">
+            <Col md="5">
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">
                   <FiPhone />
